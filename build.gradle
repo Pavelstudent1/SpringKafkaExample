@@ -4,26 +4,30 @@ plugins {
 //    id "io.spring.dependency-management" version "1.0.6.RELEASE"
 }
 
-apply plugin: 'io.spring.dependency-management'
+subprojects {
+    group 'spring-kafka-example'
+    version '1.0-SNAPSHOT'
 
-dependencyManagement {
-    dependencies {
-        dependency 'org.springframework.kafka:spring-kafka:2.5.4.RELEASE'
+    sourceCompatibility = 11
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        dependencies {
+            dependency 'org.springframework.boot:spring-boot-starter-web:2.3.2.RELEASE'
+            dependency 'org.springframework.boot:spring-boot-starter-test:2.3.2.RELEASE'
+            dependency 'org.springframework.kafka:spring-kafka:2.5.4.RELEASE'
+        }
     }
 }
 
-group 'spring-kafka-example'
-version '1.0-SNAPSHOT'
 
-sourceCompatibility = 11
 
-repositories {
-    mavenCentral()
-}
 
-dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.kafka:spring-kafka')
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
